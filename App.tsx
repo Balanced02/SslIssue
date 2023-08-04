@@ -13,11 +13,11 @@ import {
   useColorScheme,
   Button
 } from 'react-native';
-
+import './shim.js'
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
-import trySslPinning from './apiClient';
+import { getKeyFromPasswordWithArgon2 } from './utils';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -27,10 +27,20 @@ function App(): JSX.Element {
   };
 
   const tryThisStuff = () => {
-    const baseURL = 'https://betanet-service.lisk.com'
-    const certs = 'OC4ojEeqx+H5kPQsElQVk76KVdI8xjTB2mWLs95S9JM=' 
-    const url = '/api/v3/blockchain/apps/meta'
-    trySslPinning(baseURL, certs, url).then(data => console.log('Success', data)).catch(err => console.log('Error', err))
+    try {
+      const options = {
+        password: 'Password',
+        salt: '1',
+        parallelism: 4,
+        iterations: 1,
+        memorySize: 2097023,
+        hashLength: 32,
+        outputType: 'binary',
+      }
+      getKeyFromPasswordWithArgon2(options)
+    } catch (error) {
+      console.log({error})      
+    }
   }
 
   return (
