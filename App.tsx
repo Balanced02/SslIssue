@@ -29,8 +29,8 @@ function App(): JSX.Element {
   const tryThisStuff = () => {
     try {
       const options = {
-        password: 'Password',
-        salt: '1',
+        password: 'Password1!',
+        passphrase: 'attract squeeze option inflict dynamic end evoke love proof among random blanket table pumpkin general impose access toast undo extend fun employ agree dash',
         parallelism: 4,
         iterations: 1,
         memorySize: 2097023,
